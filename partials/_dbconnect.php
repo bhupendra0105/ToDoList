@@ -12,7 +12,7 @@
     }
     if($conn)
     {
-        //echo "connected";
+        //echo "we are connected";
     }
 
 
