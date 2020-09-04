@@ -11,7 +11,8 @@ integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ
 <?php include 'partials/_dbconnect.php'; 
    $s1 = date('d');
    
-    
+   if(isset($_SESSION['loggedin']) && ($_SESSION['loggedin'])== True)
+   {
     echo"<div><h3 style='text-align:center;'>All Remaining task</h3>
     <h5 style='text-align:right;'><a href='headerhandle.php?date=$s1'>See Todays Task</a></h5></div>";?>
     <div class="container my=6">
@@ -28,6 +29,7 @@ integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ
 
       <?php
       // fetch all remaining task from databse and make it serial no.
+     
       $sql = "SELECT * FROM `tasks`";
       $result = mysqli_query($conn,$sql);
        $no = 0;
@@ -41,6 +43,13 @@ integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ
         <td><a href='indexEdit.php?edit=$sno'>Edit</a> <a href='indexdelete.php?edit=$sno'>Delete</a></td>
         </tr>";
       }
+    }
+    else
+    {
+      echo '<br>';
+      echo "First! You Have to Login";
+      echo '<br>';
+    }
     ?>
     
 </tbody>
