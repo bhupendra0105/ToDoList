@@ -1,15 +1,13 @@
-<nav class="navbar navbar-light bg-light">
-  <a class="navbar-brand" href="http://localhost/ToDoList/index.php">To Do List</a>
-  <form class="form-inline">
-    <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Login</button>
-    <button class="btn btn-outline-light my-2 my-sm-0" type="submit">signup</button>
-</form>
-</nav>
-
-
-<div >
-  <?php
-     //date header 
+<?php
+session_start();
+if(isset($_SESSION['loggedin']) && ($_SESSION['loggedin'])==true)
+{
+  echo'<nav class="navbar navbar-light bg-light">
+  <a class="navbar-brand" href="http://localhost/ToDoList/index.php">To Do List</a>Welcome'.$_SESSION['username'].'
+  <button class="btn btn-outline-light my-2 my-sm-0" type="submit"><a href= "partials/_logout.php">Logout</a></button>
+</nav>';
+  echo "<div >";
+   //date header 
      $s1 = date('Y-m-d');
       $s2 = array($s1);
       for($i=0; $i<28;$i++)
@@ -21,6 +19,19 @@
         $datesM[]= $dateM;
         echo "<a style='text-align:center;' href='headerhandle.php?date=$datesD[$i]'>$datesD[$i]$dateM</a>
         ";
-      }?>
-      </div>
+      }
+     echo "</div>";
+    }
+
+else
+{
+  echo'<nav class="navbar navbar-light bg-light">
+  <a class="navbar-brand" href="http://localhost/ToDoList/index.php">To Do List</a><br>
+  <form class="form-inline">
+  <br><button class="btn btn-outline-light my-2 my-sm-0" type="submit"><a href ="login.php">Login</button>
+    <button class="btn btn-outline-light my-2 my-sm-0" type="submit"><a href ="SignUp.php">Signup</a></button>
+</form>
+</nav>';
+}
+     ?>
 
