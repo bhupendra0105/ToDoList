@@ -30,7 +30,9 @@
       $result = mysqli_query($conn,$sql);
       if($result)
       {
-          echo 'now You can <a href="index.php">login</a>';
+          //echo 'now You can <a href="index.php">login</a>';
+          header("location: /ToDoList/index.php?signupsuccess=true");
+          exit();
       }
       }
       else {
