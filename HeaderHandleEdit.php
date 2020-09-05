@@ -27,6 +27,12 @@ integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ
        $EditResult = false;
        if($method == 'POST')
        {
+        if (empty($_POST['taskEdit'])) 
+        {
+			$errors = "You must fill in the task";
+        }
+        else
+        {
         $taskEdit = $_POST['taskEdit'];
         $sql = "UPDATE `tasks` SET `task` = '$taskEdit', `day` = '$day' WHERE `tasks`.`sno` = $id";
         $EditResult = mysqli_query($conn,$sql);
@@ -34,13 +40,18 @@ integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ
         {
             header("Location: /ToDoList/headerhandle.php?date=$day");
         }
+       }
     }
    
    ?>
    
    <?php echo '<div>
-    <form action="'.$_SERVER['REQUEST_URI'].'"    method="post">
-    <div class="form-group">
+    <form action="'.$_SERVER['REQUEST_URI'].'"    method="post">';
+    if(isset($errors))
+    {
+        echo $errors;
+    }
+    echo'<div class="form-group">
          <label>old Task</label>
         <input type="text" class="form-control" placeholder='.$tasktask.'>
         <label>New Task</label>
