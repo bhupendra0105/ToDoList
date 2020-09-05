@@ -32,6 +32,11 @@
        $EditResult = false;
        if($method == 'POST')
        {
+           if(empty($_POST['taskEdit']))
+           {
+              echo "New task cannot be empty";
+           }
+           else{
         $taskEdit = $_POST['taskEdit'];
         $sql = "UPDATE `tasks` SET `task` = '$taskEdit', `day` = '$day' WHERE `tasks`.`sno` = $id";
         $EditResult = mysqli_query($conn,$sql);
@@ -39,13 +44,18 @@
         {
             header("Location: /ToDoList/index.php");
         }
+      }
     }
    
    ?>
    
    <?php echo '<div>
-    <form action="'.$_SERVER['REQUEST_URI'].'"    method="post">
-    <div class="form-group">
+    <form action="'.$_SERVER['REQUEST_URI'].'"    method="post">';
+     if(isset($errors))
+     {
+         echo $errors;
+     }
+    echo'<div class="form-group">
          <label>old Task</label>
         <input type="text" class="form-control" placeholder='.$tasktask.'>
         <label>New Task</label>
