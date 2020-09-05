@@ -12,19 +12,35 @@
    <?php  
   // submit task in date header
   $passid= $_GET['date'];
+  if(isset($_SESSION['loggedin']) && ($_SESSION['loggedin'])== True)
+  {
+    $UserSno = $_SESSION['sno'];  
+  } 
     $method = $_SERVER['REQUEST_METHOD'];
      if($method == 'POST')
      {
+      if (empty($_POST['task']))
+       {
+        $errors = "You must fill in the task";
+      }
+      else{
       $task = $_POST['task'];
-      $sql = "INSERT INTO `tasks` (`sno`, `task`, `day`) VALUES (NULL, '$task', '$passid')";
+      $sql = "INSERT INTO `tasks` (`sno`, `task`, `day`, `UserSno`) VALUES (NULL, '$task', '$passid', '$UserSno');
+      ";
       $result = mysqli_query($conn,$sql);
+      }
      }
       ?>     
 <?php
     echo'<div class="container my=6">
      <h4>Enter Todays Task</h4>
-<form action="  '.$_SERVER['REQUEST_URI'].'" method="post">
-   <div class="form-group">
+<form action="  '.$_SERVER['REQUEST_URI'].'" method="post">';
+ if(isset($errors))
+ {
+   echo $errors;
+ }
+    
+  echo '<div class="form-group">
     
     <input type="text" class="form-control" id="task" name="task">
     </div>
@@ -44,24 +60,35 @@
      <?php
      // fetch task from database for specified date
      $passid= $_GET['date'];
-      $sql = "SELECT * FROM `tasks` WHERE `day` = $passid";
+     if(isset($_SESSION['loggedin']) && ($_SESSION['loggedin'])== True)
+      {
+        $UserSno = $_SESSION['sno'];  
+      } 
+     $sql = "SELECT * FROM `tasks` WHERE `day` = $passid AND `UserSno` = $UserSno";
       $result = mysqli_query($conn,$sql);
        $no = 0;
       while($task = mysqli_fetch_assoc($result))
       {
        $no = $no + 1;
        $sno = $task['sno'];
-       echo "<tr>
-      <td>".$no."</td>
-      <td>".$task['task']."</td>
-      <td><a href='HeaderHandleEdit.php?edit=$sno'>Edit</a> <a href='HeaderHandleDelete.php?edit=$sno'>Delete</a></td>
-      </tr>";
-      }
+       
+       
+        echo "<tr>
+        <td>".$no."</td>
+        <td>".$task['task']."</td>
+        <td><a href='HeaderHandleEdit.php?edit=$sno'>Edit</a> <a href='HeaderHandleDelete.php?edit=$sno'>Delete</a></td>
+        </tr>";
+        
+      
+    }
     ?>
     </tbody>
     </table>
 </div>
 </body>
 </html>
+
+
+
 
 
