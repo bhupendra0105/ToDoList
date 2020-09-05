@@ -29,8 +29,8 @@ integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ
 
       <?php
       // fetch all remaining task from databse and make it serial no.
-     
-      $sql = "SELECT * FROM `tasks`";
+      $UserSno = $_SESSION['sno'];
+      $sql = "SELECT * FROM `tasks` WHERE `UserSno` = $UserSno";
       $result = mysqli_query($conn,$sql);
        $no = 0;
       while($task = mysqli_fetch_assoc($result))
