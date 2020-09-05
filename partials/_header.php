@@ -3,7 +3,7 @@ session_start();
 if(isset($_SESSION['loggedin']) && ($_SESSION['loggedin'])==true)
 {
   echo'<nav class="navbar navbar-light bg-light">
-  <a class="navbar-brand" href="http://localhost/ToDoList/index.php">To Do List</a>Welcome'.$_SESSION['username'].'
+  <a class="navbar-brand" href="http://localhost/ToDoList/index.php">To Do List</a>Welcome<b>'.$_SESSION['username'].'</b>
   <button class="btn btn-outline-light my-2 my-sm-0" type="submit"><a href= "partials/_logout.php">Logout</a></button>
 </nav>';
   echo "<div >";
@@ -33,5 +33,10 @@ else
 </form>
 </nav>';
 }
-     ?>
-
+?>
+<?php
+if(isset($_GET['signupsuccess']) && $_GET['signupsuccess']=="true")
+{
+  echo  "<strong>Success</strong> <I>now you can Login</I>" ;
+}
+?>
